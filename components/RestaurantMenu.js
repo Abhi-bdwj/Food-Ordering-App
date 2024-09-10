@@ -1,49 +1,46 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React from "react";
 import Shimmer from "../components/Shimmer";
-import { MENU_URL } from "../Utils/constant";
 import { useParams } from "react-router-dom";
+import useRestaurantMenu from "../Utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
-  const {resID} = useParams();
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-  const fetchMenu = async () => {
-    try {
-      const data = await fetch(
-        MENU_URL + resID
-      );
-      if (!data.ok) {
-        throw new Error("Network response was not ok");
-      }
+  const { resID } = useParams();
+  const resInfo = useRestaurantMenu(resID);
 
-      const json = await data.json();
-
-      console.log(json);
-      setResInfo(json.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
   if (resInfo === null) return <Shimmer />;
+  
 
   const { name, cuisines, costForTwoMessage } =
     resInfo?.cards[2]?.card?.card?.info;
 
-  const { itemCards } =
-    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-  console.log(itemCards);
+ const itemCards = resInfo?.cards?.find(card => 
+    card?.groupedCard?.cardGroupMap?.REGULAR?.cards?.some(innerCard => 
+      innerCard?.card?.card?.itemCards
+    )
+  )?.groupedCard?.cardGroupMap?.REGULAR?.cards.find(innerCard => 
+    innerCard?.card?.card?.itemCards
+  )?.card?.card?.itemCards || [];
+ 
 
   return (
     <div className="menu">
       <h1> {name}</h1>
+      <p>
+        {cuisines.join(",")} - {costForTwoMessage}
+      </p>
       <h1>Menu</h1>
       <h3>Recommended</h3>
       <div>
         <ul>
-          {itemCards.map((item)=> <li key={item.card.info.id}>{item.card.info.name} - {"Rs"} {item.card.info.price/100}</li>)}
+          {itemCards?.length > 0 ? (
+            itemCards.map((item) => (
+              <li key={item.card.info.id}>
+                {item.card.info.name} - {"Rs"} {item.card.info.price / 100}
+              </li>
+            ))
+          ) : (
+            <li>No items available</li>
+          )}
         </ul>
       </div>
     </div>
