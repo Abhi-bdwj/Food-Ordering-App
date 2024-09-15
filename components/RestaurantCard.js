@@ -1,24 +1,27 @@
 import React from "react";
 import { IMG_URL } from "../Utils/constants";
 
-
 const RestaurantCard = (props) => {
   const { resList } = props;
   const { name, cuisines, avgRating, costForTwo } = resList?.info;
+
   return (
-    <div className="res-card">
+    <div className="res-card p-4 w-64 my-4 bg-white shadow-lg rounded-lg hover:shadow-xl hover:bg-gray-50 transition-shadow duration-300">
       <img
-        className="res-logo"
-        src={
-          IMG_URL + resList.info.cloudinaryImageId
-        }
+        className="res-logo w-full h-40 object-cover rounded-t-lg"
+        src={IMG_URL + resList.info.cloudinaryImageId}
         alt="res-logo"
       />
-      <h3>{name}</h3>
-      <h4>{cuisines.join()}</h4>
-      <h4>Rating :{avgRating} </h4>
-      <h4>{costForTwo} </h4>
+      <div className="p-4">
+        <h3 className="font-semibold text-lg mb-2 truncate">{name}</h3>
+        <h4 className="text-gray-500 text-sm mb-2 truncate">
+          {cuisines.join(", ")}
+        </h4>
+        <h4 className="text-yellow-500 text-sm mb-1">Rating: {avgRating}</h4>
+        <h4 className="text-gray-700 text-sm">Cost for two: {costForTwo}</h4>
+      </div>
     </div>
   );
 };
+
 export default RestaurantCard;
