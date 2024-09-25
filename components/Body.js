@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import React, { useContext, useEffect, useState } from "react";
+import RestaurantCard, { WithPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+
+import UserContext from "../Utils/UserContext";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]); // Original list
   const [filteredRestaurants, setFilteredRestaurants] = useState([]); // Filtered list
   const [searchText, setSearchText] = useState("");
+  const RestaurantCardPromoted = WithPromotedLabel(RestaurantCard);
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   useEffect(() => {
     fetchData();
@@ -15,7 +19,8 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=29.9141069&lng=78.1535928&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        
+        // "https://www.swiggy.com/dapi/restaurants/list/v5?lat=29.9141069&lng=78.1535928&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
 
       if (!data.ok) {
@@ -23,7 +28,6 @@ const Body = () => {
       }
 
       const json = await data.json();
-      console.log(json);
 
       const restaurants =
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
@@ -101,13 +105,26 @@ const Body = () => {
         </button>
       </div>
 
+      <div className="flex items-center py-4">
+        <label className="px-5 font-medium text-gray-600">UserName:</label>
+        <input
+            className="border border-gray-300 rounded-full p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all duration-200"
+            value={loggedInUser}
+          onChange={(event) => setUserName(event.target.value)}
+        ></input>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredRestaurants.map((restaurant) => (
           <Link
             key={restaurant.info.id}
             to={"/restaurant/" + restaurant.info.id}
           >
-            <RestaurantCard resList={restaurant} />
+            {restaurant.info.avgRating > 4.4 ? (
+              <RestaurantCardPromoted resList={restaurant} />
+            ) : (
+              <RestaurantCard resList={restaurant} />
+            )}
           </Link>
         ))}
       </div>

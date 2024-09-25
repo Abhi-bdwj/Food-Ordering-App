@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Shimmer from "../components/Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../Utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
   const { resID } = useParams();
   const resInfo = useRestaurantMenu(resID);
+  const [showIndex, setShowIndex] = useState(null);
 
   if (resInfo === null) return <Shimmer />;
 
@@ -23,6 +25,17 @@ const RestaurantMenu = () => {
         (innerCard) => innerCard?.card?.card?.itemCards
       )?.card?.card?.itemCards || [];
 
+  const categories =
+    resInfo?.cards?.flatMap(
+      (card) =>
+        card?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+          (c) =>
+            c.card?.card?.["@type"] ===
+            "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        ) || []
+    ) || [];
+  console.log("categories", categories);
+
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
       {/* Restaurant Info */}
@@ -31,32 +44,14 @@ const RestaurantMenu = () => {
         <p className="text-lg text-gray-600">
           {cuisines.join(", ")} - {costForTwoMessage}
         </p>
-      </div>
-
-      {/* Menu Section */}
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4">Menu</h2>
-        <h3 className="text-xl font-medium mb-2">Recommended</h3>
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <ul className="space-y-4">
-            {itemCards.length > 0 ? (
-              itemCards.map((item) => (
-                <li
-                  key={item.card.info.id}
-                  className="border-b border-gray-300 pb-2  flex"
-                >
-                  <span className="font-medium">{item.card.info.name}</span> -
-                  {"Rs"} {item.card.info.price / 100} 
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-700 self-end">
-                    Add
-                  </button>
-                </li>
-              ))
-            ) : (
-              <li className="text-gray-500">No items available</li>
-            )}
-          </ul>
-        </div>
+        {categories.map((category, index) => (
+          <RestaurantCategory
+            key={category?.card?.card.title}
+            data={category?.card?.card}
+            showItems={index === showIndex}
+            setShowIndex={()=>{setShowIndex(index ===showIndex ? null : index)}}
+          />
+        ))}
       </div>
     </div>
   );

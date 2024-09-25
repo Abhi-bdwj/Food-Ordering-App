@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../Images/logo/logo.png";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "./useOnlineStatus";
+import UserContext from "../Utils/UserContext";
+
 
 const Header = () => {
   const [btnName, setbtnName] = useState("Login");
   const onlineStatus = useOnlineStatus();
+  
+  const {loggedInUser} = useContext(UserContext)
 
   return (
     <div className="flex justify-between items-center py-4 px-8 bg-gray-500 shadow-md">
@@ -33,6 +37,9 @@ const Header = () => {
           </li>
           <li>
             <Link to="/cart" className="hover:text-white">Cart</Link>
+          </li>
+          <li>
+            <Link to="/cart" className="px-4 font-bold">{loggedInUser}</Link>
           </li>
 
           {/* Login/Logout Button */}
