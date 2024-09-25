@@ -6,13 +6,14 @@ import {addItem} from "../Utils/cartSlice";
 const ItemList = ({ items }) => {
 
   const dispatch = useDispatch()
-
+  // stopped the closing of the accordion when clicked on add button using stopPropagation()
   const handleAddItem = (event) => {
     event.stopPropagation()
     dispatch(addItem())
   }
   return (
-    <div onClick={(event) => event.stopPropagation()}>
+    // stopped the closing of the accordion when clicked on any item of the list using stopPropagation()
+    <div onClick={(event) => event.stopPropagation()}> 
       {items.map((item) => (
         <div
           key={item.card.info.id}
