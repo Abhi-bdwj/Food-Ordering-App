@@ -20,7 +20,7 @@ const Body = () => {
     setLoading(true); // Set loading to true when fetching starts
     try {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=29.9141069&lng=78.1535928&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4958831&lng=77.0886598&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
 
       if (!data.ok) {

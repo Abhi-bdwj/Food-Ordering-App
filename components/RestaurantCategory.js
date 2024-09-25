@@ -4,7 +4,7 @@ import ItemList from "./ItemList";
 const RestaurantCategory = ({ data, showItems, setShowIndex, index }) => {
   const categoryRef = useRef(null); // Create a ref for each accordion
 
-  const accordionHandler = () => {
+  const accordionHandler = (event) => {
     setShowIndex(index); // Pass the index of this accordion to the parent
   };
 
