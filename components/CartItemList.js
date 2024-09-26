@@ -1,19 +1,18 @@
 import React from "react";
 import { IMG_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
-import {addItem} from "../utils/cartSlice"; 
+import { addItem } from "../utils/cartSlice";
 
-const ItemList = ({ items }) => {
-
-  const dispatch = useDispatch()
+const CartItemList = ({ items }) => {
+  const dispatch = useDispatch();
   // stopped the closing of the accordion when clicked on add button using stopPropagation()
-  const handleAddItem = (event,item) => {
-    event.stopPropagation()
-    dispatch(addItem(item))
-  }
+  const handleAddItem = (event, item) => {
+    event.stopPropagation();
+    dispatch(addItem(item));
+  };
   return (
     // stopped the closing of the accordion when clicked on any item of the list using stopPropagation()
-    <div onClick={(event) => event.stopPropagation()}> 
+    <div onClick={(event) => event.stopPropagation()}>
       {items.map((item) => (
         <div
           key={item.card.info.id}
@@ -23,9 +22,12 @@ const ItemList = ({ items }) => {
             <div className="py-2">
               <span>{item.card.info.name}</span>
               <br />
-              <span>₹{item.card.info.price
+              <span>
+                ₹
+                {item.card.info.price
                   ? item.card.info.price / 100
-                  : item.card.info.defaultPrice / 100}</span>
+                  : item.card.info.defaultPrice / 100}
+              </span>
             </div>
             <p className="text-sm">{item.card.info.description}</p>
           </div>
@@ -35,11 +37,6 @@ const ItemList = ({ items }) => {
               className="rounded-lg w-full"
               alt={item.card.info.name}
             />
-            <div className="absolute inset-x-0 bottom-0 flex justify-center">
-              <button  onClick={(event)=>handleAddItem(event,item)} className="p-2 bg-white shadow-lg font-bold rounded-lg hover:bg-gray-300 text-green-700">
-                Add+
-              </button>
-            </div>
           </div>
         </div>
       ))}
@@ -47,4 +44,4 @@ const ItemList = ({ items }) => {
   );
 };
 
-export default ItemList;
+export default CartItemList;

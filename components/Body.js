@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import RestaurantCard, { WithPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import UserContext from "../Utils/UserContext";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]); // Original list

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import logo from "../Images/logo/logo.png";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "./useOnlineStatus";
-import UserContext from "../Utils/UserContext";
+import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 const Header = () => {
@@ -14,7 +14,7 @@ const Header = () => {
   const cartItems = useSelector((store) => store.cart.items);
 
   return (
-    <div className="flex justify-between items-center py-4 px-8 bg-gray-500 shadow-md">
+    <div className="flex justify-between items-center py-4 px-8 text-blue-300 bg-gray-900 shadow-lg">
       <div className="flex items-center">
         <Link to="/">
           <img className="h-20 w-20 rounded-full" src={logo} alt="Logo" />
