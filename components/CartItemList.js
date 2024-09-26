@@ -1,15 +1,7 @@
 import React from "react";
 import { IMG_URL } from "../utils/constants";
-import { useDispatch } from "react-redux";
-import { addItem } from "../utils/cartSlice";
 
 const CartItemList = ({ items }) => {
-  const dispatch = useDispatch();
-  // stopped the closing of the accordion when clicked on add button using stopPropagation()
-  const handleAddItem = (event, item) => {
-    event.stopPropagation();
-    dispatch(addItem(item));
-  };
   return (
     // stopped the closing of the accordion when clicked on any item of the list using stopPropagation()
     <div onClick={(event) => event.stopPropagation()}>
