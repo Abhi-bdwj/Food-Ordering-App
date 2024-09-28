@@ -110,15 +110,6 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="flex items-center py-4">
-        <label className="px-5 font-medium text-gray-600">UserName:</label>
-        <input
-          className="border border-gray-300 rounded-full p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all duration-200"
-          value={loggedInUser}
-          onChange={(event) => setUserName(event.target.value)}
-        />
-      </div>
-
       {searchText && filteredRestaurants.length === 0 ? (
         <div>
           <h1>No data found for "{searchText}"</h1>

@@ -21,7 +21,6 @@ const CartItemList = ({ items }) => {
                   : item.card.info.defaultPrice / 100}
               </span>
             </div>
-            <p className="text-sm">{item.card.info.description}</p>
           </div>
           <div className="relative w-3/12">
             <img
@@ -32,6 +31,7 @@ const CartItemList = ({ items }) => {
           </div>
         </div>
       ))}
+      <div></div>
     </div>
   );
 };

@@ -11,11 +11,16 @@ import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./Utils/appstore";
 import Cart from "./components/Cart";
+import Login from "./components/Login";
+import SignUp from "./components/Signup";
+import UserAccount from "./components/UserAccount";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
   const [userName, setUserName] = useState("");
+  const [lgnBtn,setLgnBtn] = useState("");
+  const contextValue={loggedInUser: userName, setUserName ,lgn:lgnBtn,setLgnBtn};
 
   useEffect(() => {
     const data = {
@@ -25,7 +30,7 @@ const AppLayout = () => {
   }, []);
   return (
     <Provider store={appStore}>
-      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <UserContext.Provider value={contextValue}>
         <div className="app">
           <Header />
           <Outlet />
@@ -67,6 +72,18 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart/>,
+      },
+      {
+        path: "/login",
+        element: <Login/>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp/>,
+      },
+      {
+        path: "/userAccount",
+        element: <UserAccount/>,
       },
     ],
   },
