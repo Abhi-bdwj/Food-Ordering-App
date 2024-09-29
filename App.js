@@ -32,7 +32,7 @@ const AppLayout = () => {
     <Provider store={appStore}>
       <UserContext.Provider value={contextValue}>
         <div className="app">
-          <Header />
+          <Header/>
           <Outlet />
         </div>
       </UserContext.Provider>

@@ -17,12 +17,12 @@ const Cart = () => {
       </h1>
 
       <div className="w-6/12 m-auto ">
-        <button
+        {cartItems.length > 0  && (<button
           onClick={handleClearCart}
           className="bg-black text-white p-2 m-2 rounded-lg"
         >
           Clear Cart
-        </button>
+        </button>)}
         {cartItems.length === 0 && (
           <h1>Cart is empty. Add items to the cart. </h1>
         )}

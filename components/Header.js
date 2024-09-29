@@ -25,7 +25,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center py-4 px-8 text-blue-300 bg-gray-900 shadow-lg">
+    <div className="flex justify-between items-center sticky top-0 w-full z-10 py-4 px-8 text-blue-300 bg-gray-900 shadow-xl">
       <div className="flex items-center">
         <Link to="/">
           <img className="h-20 w-20 rounded-full" src={logo} alt="Logo" />
