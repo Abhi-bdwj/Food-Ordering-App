@@ -63,7 +63,7 @@ const Body = () => {
   };
 
   const filterTopRated = () => {
-    const filteredList = restaurantList.filter((res) => res.info.avgRating > 4);
+    const filteredList = restaurantList.filter((res) => res.info.avgRating > 4.5);
     setFilteredRestaurants(filteredList);
   };
 

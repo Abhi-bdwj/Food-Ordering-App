@@ -54,10 +54,11 @@ const CartItemList = ({ items }) => {
           </div>
         </div>
       ))}
+      {/*show total amount*/}
       {uniqueItems.length > 0 ? (
         <div className="flex justify-between p-2">
-          <h1 className="font-bold font-serif text-red-400">Total Amount:</h1>
-          <span className="pr-5 text-bold font-extrabold text-red-400">
+          <h1 className="font-bold font-serif text-red-600">Total Amount:</h1>
+          <span className="pr-5 text-bold font-bold text-red-600">
             {totalAmount}
           </span>
         </div>
