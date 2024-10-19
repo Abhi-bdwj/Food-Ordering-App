@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 import appStore from "./Utils/appstore";
 import Cart from "./components/Cart";
 import Login from "./components/Login";
-import SignUp from "./components/Signup";
+import SignUp from "./components/SignUp";
 import UserAccount from "./components/UserAccount";
 
 const Grocery = lazy(() => import("./components/Grocery"));
